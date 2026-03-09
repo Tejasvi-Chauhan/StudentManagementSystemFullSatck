@@ -1,0 +1,6 @@
+@StudentManagementSystemFullSatck_HostAddress = http://localhost:5028
+
+GET {{StudentManagementSystemFullSatck_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
