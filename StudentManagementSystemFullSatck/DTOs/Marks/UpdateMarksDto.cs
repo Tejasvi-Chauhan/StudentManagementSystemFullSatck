@@ -1,0 +1,19 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace StudentManagementSystemFullStack.DTOs.Marks
+{
+    public class UpdateMarksDto
+    {
+
+        public int Id { get; set; }
+
+        [Required]
+        [Range(0,100,ErrorMessage ="Marks must be between 0 and 100")]
+        public decimal MarksObtained { get; set; }
+
+        public decimal TotalMarks { get; set; }
+        [Required]
+        public string Grade { get; set; } = string.Empty;
+
+    }
+}
