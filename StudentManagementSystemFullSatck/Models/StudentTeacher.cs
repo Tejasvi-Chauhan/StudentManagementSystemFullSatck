@@ -1,14 +1,12 @@
 ﻿namespace StudentManagementSystemFullStack.Models
 {
-    public class StudentTeacher
+    public class StudentTeacher : BaseEntity
     {
         public int Id { get; set; }
 
         public int StudentId { get; set; }
 
         public int TeacherId { get; set; }
-
-        public DateTime AssignedAt { get; set; } = DateTime.UtcNow;
 
         public Student Student { get; set; } = null!;
 

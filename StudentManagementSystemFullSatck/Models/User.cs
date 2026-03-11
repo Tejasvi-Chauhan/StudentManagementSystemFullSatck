@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 namespace StudentManagementSystemFullStack.Models
 {
-    public class User
+    public class User : BaseEntity
     {
 
         public int Id { get; set; }
@@ -14,6 +14,6 @@ namespace StudentManagementSystemFullStack.Models
        
         public string Role { get; set; } = string.Empty; // "Student", "Teacher", "Admin"
        
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        
     }
 }

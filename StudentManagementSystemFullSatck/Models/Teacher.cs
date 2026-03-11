@@ -1,6 +1,6 @@
 ﻿namespace StudentManagementSystemFullStack.Models
 {
-    public class Teacher
+    public class Teacher : BaseEntity
     {
         public int Id { get; set; }
         public int UserId { get; set; }

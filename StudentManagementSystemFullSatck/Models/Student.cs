@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 namespace StudentManagementSystemFullStack.Models
 {
-    public class Student
+    public class Student : BaseEntity
     {
         public int Id { get; set; }
       
@@ -14,8 +14,6 @@ namespace StudentManagementSystemFullStack.Models
        
         public string Address { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } 
-
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         public User User { get; set; } = null!; // Navigation property to User
 

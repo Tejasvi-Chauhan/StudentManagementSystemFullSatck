@@ -110,6 +110,12 @@ namespace StudentManagementSystemFullStack.Data
                 .WithMany()
                 .HasForeignKey(p => p.StudentId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ProfileUpdateRequest>()
+                .HasOne(p => p.Reviewer)
+                .WithMany()
+                .HasForeignKey(p => p.ReviewedBy)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

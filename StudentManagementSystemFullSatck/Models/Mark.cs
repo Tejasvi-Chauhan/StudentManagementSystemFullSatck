@@ -1,6 +1,6 @@
 ﻿namespace StudentManagementSystemFullStack.Models
 {
-    public class Mark
+    public class Mark : BaseEntity
     {
         public int Id { get; set; }
         public int StudentId { get; set; }
@@ -14,15 +14,10 @@
         public decimal TotalMarks { get; set; }= 0;
 
         public string Grade { get; set; } = string.Empty;
-
-        public DateTime AddedAt { get; set; } = DateTime.UtcNow;
-
-        public DateTime UpdatedAt { get; set; }= DateTime.UtcNow;
-
         public Student Student { get; set; } = null!;
 
         public Teacher Teacher { get; set; } = null!;
 
-            public Course Course { get; set; } = null!;
+       public Course Course { get; set; } = null!;
     }
 }

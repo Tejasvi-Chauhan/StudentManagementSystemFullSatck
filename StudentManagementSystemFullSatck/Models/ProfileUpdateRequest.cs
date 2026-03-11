@@ -1,6 +1,6 @@
 ﻿namespace StudentManagementSystemFullStack.Models
 {
-    public class ProfileUpdateRequest
+    public class ProfileUpdateRequest : BaseEntity
     {
         public int Id { get; set; }
 
@@ -14,13 +14,11 @@
 
         public string Status { get; set; } = "Pending";
 
-        public DateTime RequestedAt { get; set; } = DateTime.UtcNow;
-
-        public int ReviewedBy { get; set; }
+        public int? ReviewedBy { get; set; }
 
         public DateTime? ReviewedAt { get; set; }
 
-        public User User { get; set; } = null!;
+        public User? Reviewer { get; set; } 
          public Student Student { get; set; } = null!;
     }
 }
