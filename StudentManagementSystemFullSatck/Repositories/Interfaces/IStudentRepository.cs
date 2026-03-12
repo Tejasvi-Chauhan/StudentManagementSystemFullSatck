@@ -1,4 +1,5 @@
-﻿using StudentManagementSystemFullStack.Models;
+﻿using StudentManagementSystemFullStack.DTOs.Student;
+using StudentManagementSystemFullStack.Models;
 namespace StudentManagementSystemFullStack.Repositories.Interfaces
 {
     public interface IStudentRepository
@@ -8,6 +9,6 @@ namespace StudentManagementSystemFullStack.Repositories.Interfaces
         Task AddAsync(Student student);
         Task UpdateAsync(Student student);
         Task DeleteAsync(int id);
-
+        
     }
 }

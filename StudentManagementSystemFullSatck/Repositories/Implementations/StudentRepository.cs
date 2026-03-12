@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudentManagementSystemFullStack.Data;
+using StudentManagementSystemFullStack.DTOs.Student;
 using StudentManagementSystemFullStack.Models;
 using StudentManagementSystemFullStack.Repositories.Interfaces;
 
@@ -30,10 +31,11 @@ namespace StudentManagementSystemFullStack.Repositories.Implementations
         }
 
         public async Task AddAsync(Student student)
-        {   
-           
+        {
+
             await _db.Students.AddAsync(student);
             await _db.SaveChangesAsync();
+            
         }
 
         public async Task UpdateAsync(Student student)
@@ -62,7 +64,5 @@ namespace StudentManagementSystemFullStack.Repositories.Implementations
                 await _db.SaveChangesAsync();
             }
         }
-
-       
     }
 }

@@ -15,7 +15,6 @@ namespace StudentManagementSystemFullStack.Repositories.Implementations
 
         }
 
-
         public async Task<Teacher?> GetByIdAsync(int id)
         {
             var teacher = await _db.Teachers.Include(t => t.User).FirstOrDefaultAsync(t => t.Id == id && !t.IsDeleted && t.IsActive);

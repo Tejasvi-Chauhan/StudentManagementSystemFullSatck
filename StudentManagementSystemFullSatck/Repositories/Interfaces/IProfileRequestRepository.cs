@@ -8,6 +8,8 @@ namespace StudentManagementSystemFullStack.Repositories.Interfaces
         Task<IEnumerable<ProfileUpdateRequest>> GetByStudentIdAsync(int studentId);
         Task<IEnumerable<ProfileUpdateRequest>> GetAllPendingAsync();
         Task AddAsync(ProfileUpdateRequest request);
+
         Task UpdateAsync(ProfileUpdateRequest request);
+        Task DeleteAsync(int id);
     }
 }
