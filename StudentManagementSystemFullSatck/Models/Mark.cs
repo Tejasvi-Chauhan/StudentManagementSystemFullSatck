@@ -11,7 +11,7 @@
 
         public decimal MarksObtained { get; set; } = 0;
 
-        public decimal TotalMarks { get; set; }= 0;
+        public decimal TotalMarks { get; set; }= 100;
 
         public string Grade { get; set; } = string.Empty;
         public Student Student { get; set; } = null!;
@@ -19,5 +19,7 @@
         public Teacher Teacher { get; set; } = null!;
 
        public Course Course { get; set; } = null!;
+
+
     }
 }

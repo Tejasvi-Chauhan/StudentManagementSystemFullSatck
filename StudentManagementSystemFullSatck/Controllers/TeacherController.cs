@@ -19,34 +19,69 @@ namespace StudentManagementSystemFullStack.Controllers
         [HttpGet("{id}")]
 
         public async Task<IActionResult> GetById(int id) {
-            var teachers = await _service.GetByIdAsync(id);
-            if(teachers==null)
+
+            try
             {
-                return NotFound("Teacher not found");
+                var teachers = await _service.GetByIdAsync(id);
+                if (teachers == null)
+                {
+                    return NotFound("Teacher not found");
+
+                }
+                return Ok(teachers);
 
             }
-            return Ok(teachers);
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+
         }
 
         [HttpGet]
 
         public async Task<IActionResult> GetAll() {
-            var teachers = await _service.GetAllAsync();
-            return Ok(teachers);
-        }
+            try
+            {
+                var teachers = await _service.GetAllAsync();
+                return Ok(teachers);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+
+            }
 
         [HttpPost]
         public async Task<IActionResult> Add(CreateTeacherDto teacher) {
-            await _service.AddAsync(teacher);
-            return Ok("Teacher added successfully");
+            try
+            {
+                await _service.AddAsync(teacher);
+                return Ok("Teacher added successfully");
+            }
+            catch(Exception ex) {
+                {
+                    return StatusCode(500, $"An error occurred: {ex.Message}");
+                }
+                }
         }
 
         [HttpDelete("{id}")]
 
         public async Task<IActionResult> Delete(int id)
-        {
-            await _service.DeleteAsync(id);
-            return Ok("Teacher deleted successfully");
-        }
+        {  
+            try
+            {
+
+                await _service.DeleteAsync(id);
+                return Ok("Teacher deleted successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+
+            }
+            }
     }
 }

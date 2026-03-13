@@ -8,6 +8,8 @@ namespace StudentManagementSystemFullStack.DTOs.Marks
         [Required]
         public int CourseId { get; set; }
         [Required]
+        public int TeacherId { get; set; }
+        [Required]
         [Range(0,100,ErrorMessage ="Marks must be between 0 and 100")]
          public decimal MarksObtained { get; set; }
         

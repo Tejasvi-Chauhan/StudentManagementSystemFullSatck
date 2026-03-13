@@ -2,9 +2,9 @@
 {
     public class BaseEntity
     {
-        public Boolean IsActive { get; set; } = true;
+        public bool IsActive { get; set; } = true;
 
-        public Boolean IsDeleted { get; set; } = false;
+        public bool IsDeleted { get; set; } = false;
 
         public DateTime CreatedAt { get; set; }= DateTime.Now;
 
