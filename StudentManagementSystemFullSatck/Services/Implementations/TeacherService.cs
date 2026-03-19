@@ -54,7 +54,7 @@ namespace StudentManagementSystemFullStack.Services.Implementations
                 {
                     FullName = teacherCreateDto.FullName,
                     Email = teacherCreateDto.Email,
-                    PasswordHash = teacherCreateDto.Password,
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(teacherCreateDto.Password) ,
                     Role = "Teacher"
                 },
                

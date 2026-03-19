@@ -62,13 +62,15 @@ namespace StudentManagementSystemFullStack.Services.Implementations
                 {
                     FullName = dto.FullName,
                     Email = dto.Email,
-                    PasswordHash = dto.Password ,
-                    Role= "Student"
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
+                    Role= "Student",
+                    CreatedAt=DateTime.Now,
                 },
                 RollNumber = dto.RollNumber,
                 Address = dto.Address,
                 PhoneNumber = dto.PhoneNumber,
-                DateOfBirth = dto.DateOfBirth
+                DateOfBirth = dto.DateOfBirth,
+                CreatedAt= DateTime.Now,
             };
             await _repo.AddAsync(student);
          

@@ -6,6 +6,7 @@ namespace StudentManagementSystemFullStack.Repositories.Interfaces
     {
 
         Task<IEnumerable<ProfileUpdateRequest>> GetByStudentIdAsync(int studentId);
+        Task <ProfileUpdateRequest> GetByIdAsync(int id);
         Task<IEnumerable<ProfileUpdateRequest>> GetAllPendingAsync();
         Task AddAsync(ProfileUpdateRequest request);
 

@@ -23,10 +23,15 @@ builder.Services.AddScoped<IMarkRepository, MarkRepository>();
 builder.Services.AddScoped<IProfileRequestRepository, ProfileRequestRepository>();
 builder.Services.AddScoped<IStudentCourseRepository, StudentCourseRepository>();
 builder.Services.AddScoped<IStudentTeacherRepository, StudentTeacherRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IMarkService, MarkService>();
+builder.Services.AddScoped<IProfileUpdateService, ProfileUpdateService>();
+builder.Services.AddScoped<TokenService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddEndpointsApiExplorer();
@@ -42,6 +47,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

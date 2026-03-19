@@ -25,6 +25,15 @@ namespace StudentManagementSystemFullStack.Repositories.Implementations
             var req = await _db.ProfileUpdateRequests.Where(r => r.Status == "Pending" && !r.IsDeleted && r.IsActive).ToListAsync();
             return req;
         }
+
+        public async Task<ProfileUpdateRequest?> GetByIdAsync(int id)
+        {
+            return await _db.ProfileUpdateRequests
+        .Include(p => p.Student)
+            .ThenInclude(s => s.User)  
+        .Include(p => p.Reviewer)
+        .FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
+        }
         public async Task AddAsync(ProfileUpdateRequest request)
         {
             await _db.ProfileUpdateRequests.AddAsync(request);
