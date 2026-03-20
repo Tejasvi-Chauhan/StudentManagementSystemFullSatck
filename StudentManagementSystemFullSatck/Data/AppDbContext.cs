@@ -18,6 +18,10 @@ namespace StudentManagementSystemFullStack.Data
         public DbSet<StudentTeacher> StudentTeachers { get; set; }
         public DbSet<ProfileUpdateRequest> ProfileUpdateRequests { get; set; }
 
+        public DbSet<TeacherCourse> TeacherCourses { get; set; }
+
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // ── User ──────────────────────────────
@@ -115,6 +119,18 @@ namespace StudentManagementSystemFullStack.Data
                 .HasOne(p => p.Reviewer)
                 .WithMany()
                 .HasForeignKey(p => p.ReviewedBy)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<TeacherCourse>()
+                .HasOne(tc => tc.Teacher)
+                .WithMany()
+                .HasForeignKey(tc => tc.TeacherId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<TeacherCourse>()
+                .HasOne(tc => tc.Course)
+                .WithMany()
+                .HasForeignKey(tc => tc.CourseId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

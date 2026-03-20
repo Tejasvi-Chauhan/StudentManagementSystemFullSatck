@@ -15,13 +15,17 @@ namespace StudentManagementSystemFullStack.Repositories.Implementations
         }
         public async Task<IEnumerable<StudentTeacher>> GetByStudentIdAsync(int studentId)
         {
-            var st = await _db.StudentTeachers.Where(st => st.StudentId == studentId && !st.IsDeleted && st.IsActive).ToListAsync();
+            var st = await _db.StudentTeachers.Include(st => st.Student)
+            .ThenInclude(s => s.User).Include(st => st.Teacher)
+            .ThenInclude(t => t.User).Where(st => st.StudentId == studentId && !st.IsDeleted && st.IsActive).ToListAsync();
             return st;
         }
 
         public async Task<IEnumerable<StudentTeacher>> GetByTeacherIdAsync(int teacherId)
         {
-           var st = await _db.StudentTeachers.Where(st=> st.TeacherId == teacherId && !st.IsDeleted && st.IsActive).ToListAsync();
+           var st = await _db.StudentTeachers.Include(st => st.Student)
+            .ThenInclude(s => s.User).Include(st => st.Teacher)
+            .ThenInclude(t => t.User).Where(st=> st.TeacherId == teacherId && !st.IsDeleted && st.IsActive).ToListAsync();
             return st;
         }
         public async Task AddAsync(StudentTeacher studentTeacher)

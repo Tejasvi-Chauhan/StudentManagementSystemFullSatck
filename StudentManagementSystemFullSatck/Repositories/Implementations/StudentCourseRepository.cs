@@ -16,14 +16,14 @@ namespace StudentManagementSystemFullStack.Repositories.Implementations
 
         public async Task<IEnumerable<Models.StudentCourse>> GetByStudentIdAsync(int studentId)
         {
-            var studentCourses = await _db.StudentCourses.Where(sc=> sc.StudentId == studentId && sc.IsActive && !sc.IsDeleted).ToListAsync();
+            var studentCourses = await _db.StudentCourses.Include(sc=>sc.Student).ThenInclude(s=>s.User).Include(sc=>sc.Course).Where(sc=> sc.StudentId == studentId && sc.IsActive && !sc.IsDeleted).ToListAsync();
             return studentCourses;
 
 
         }
         public async Task<IEnumerable<Models.StudentCourse>> GetByCourseIdAsync(int courseId)
         {
-             var sc= await _db.StudentCourses.Where(sc => sc.CourseId == courseId && sc.IsActive && !sc.IsDeleted).ToListAsync();
+             var sc= await _db.StudentCourses.Include(sc => sc.Student).ThenInclude(s => s.User).Include(sc => sc.Course).Where(sc => sc.CourseId == courseId && sc.IsActive && !sc.IsDeleted).ToListAsync();
               return sc;
         }
         public async Task AddAsync(Models.StudentCourse studentCourse)
