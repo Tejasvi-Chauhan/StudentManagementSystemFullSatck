@@ -30,6 +30,20 @@ namespace StudentManagementSystemFullStack.Data
                 .HasIndex(u => u.Email)
                 .IsUnique();
 
+            // rollnumber bhi unique hoga
+            modelBuilder.Entity<Student>()
+                .HasIndex(u=>u.RollNumber)
+                .IsUnique();
+
+            modelBuilder.HasSequence<int>("RollGen")
+                .StartsAt(1)
+                .IncrementsBy(1);
+
+            modelBuilder.Entity<Student>()
+                .Property(s => s.RollNumber)
+                .HasDefaultValueSql("'STU' + RIGHT('0000' + CAST(NEXT VALUE FOR RollGen AS VARCHAR),4)");
+
+
             // ── Student ───────────────────────────
             // Student → User (one-to-one)
             modelBuilder.Entity<Student>()
@@ -132,6 +146,9 @@ namespace StudentManagementSystemFullStack.Data
                 .WithMany()
                 .HasForeignKey(tc => tc.CourseId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+           
+
         }
     }
 }

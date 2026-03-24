@@ -15,9 +15,8 @@ namespace StudentManagementSystemFullStack.DTOs.Student
         [MinLength(8,ErrorMessage ="Minimum 8 characters required")]
         public string Password { get; set; } = string.Empty;
 
-        [Required(ErrorMessage =("RollNumber required"))]
-        public string RollNumber { get; set; } = string.Empty;
-
+        [Required(ErrorMessage = "RollNumber is required")]
+        public string RollNumber { get; set; }= string.Empty;
         [Required(ErrorMessage ="Address is required")]
         public string Address { get; set; } = string.Empty;
 

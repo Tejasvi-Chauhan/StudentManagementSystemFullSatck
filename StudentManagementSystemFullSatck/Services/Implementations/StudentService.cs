@@ -29,7 +29,7 @@ namespace StudentManagementSystemFullStack.Services.Implementations
                 Id = st.Id,
                 FullName = st.User.FullName,
                 Email = st.User.Email,
-                RollNumber = st.RollNumber,
+               
                 Address = st.Address,
                 PhoneNumber = st.PhoneNumber,
                 DateOfBirth = st.DateOfBirth
@@ -45,7 +45,7 @@ namespace StudentManagementSystemFullStack.Services.Implementations
                 Id = s.Id,
                 FullName = s.User.FullName,
                 Email = s.User.Email,
-                RollNumber = s.RollNumber,
+               
                 Address = s.Address,
                 PhoneNumber = s.PhoneNumber,
                 DateOfBirth = s.DateOfBirth

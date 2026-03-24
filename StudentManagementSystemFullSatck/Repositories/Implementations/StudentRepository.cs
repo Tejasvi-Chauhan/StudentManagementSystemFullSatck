@@ -44,7 +44,7 @@ namespace StudentManagementSystemFullStack.Repositories.Implementations
             if (std != null)
             {
                 std.User = student.User;
-                std.RollNumber = student.RollNumber;
+                 
                 std.PhoneNumber = student.PhoneNumber;
                 std.Address = student.Address;
                 std.ModifiedAt = DateTime.Now;
