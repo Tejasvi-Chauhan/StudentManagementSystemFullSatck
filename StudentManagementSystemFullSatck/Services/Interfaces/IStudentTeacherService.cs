@@ -6,7 +6,8 @@ namespace StudentManagementSystemFullStack.Services.Interfaces
     {
         Task<IEnumerable<StudentTeacherResponseDto>> GetByStudentIdAsync(int studentId);
         Task<IEnumerable<StudentTeacherResponseDto>> GetByTeacherIdAsync(int teacherId);
+        Task<IEnumerable<StudentTeacherResponseDto>> GetAllAsync();
         Task AssignTeacherAsync(AssignTeacherDto dto);
-        Task RemoveTeacherAsync(int studentId, int teacherId);
+        Task RemoveTeacherAsync(int Id);
     }
 }

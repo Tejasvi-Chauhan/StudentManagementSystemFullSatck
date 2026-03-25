@@ -28,6 +28,14 @@ namespace StudentManagementSystemFullStack.Repositories.Implementations
             .ThenInclude(t => t.User).Where(st=> st.TeacherId == teacherId && !st.IsDeleted && st.IsActive).ToListAsync();
             return st;
         }
+
+        public async Task<IEnumerable<StudentTeacher>> GetAllAsync()
+        {
+            var st = await _db.StudentTeachers.Include(st => st.Student)
+           .ThenInclude(s => s.User).Include(st => st.Teacher)
+           .ThenInclude(t => t.User).Where( st=>!st.IsDeleted && st.IsActive).ToListAsync();
+            return st;
+        }
         public async Task AddAsync(StudentTeacher studentTeacher)
         {
              await _db.StudentTeachers.AddAsync(studentTeacher);
@@ -35,9 +43,9 @@ namespace StudentManagementSystemFullStack.Repositories.Implementations
         }
 
 
-        public async Task DeleteAsync(int studentId, int teacherId)
+        public async Task DeleteAsync(int Id)
         {
-            var st = await _db.StudentTeachers.FirstOrDefaultAsync(st => st.StudentId == studentId && st.TeacherId == teacherId);
+            var st = await _db.StudentTeachers.FirstOrDefaultAsync(st => Id==st.Id);
             if (st != null)
             {
                 st.IsActive= false;

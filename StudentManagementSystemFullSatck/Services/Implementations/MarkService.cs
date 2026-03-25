@@ -34,10 +34,29 @@ namespace StudentManagementSystemFullStack.Services.Implementations
         
         }
 
+        public async Task<IEnumerable<MarksResponseDto>> GetAllAsync()
+        {
+            var mark = await _repo.GetAllAsync();
+            var response = mark.Select(mark => new MarksResponseDto
+            {
+                Id = mark.Id,
+                StudentName = mark.Student.User.FullName,
+                CourseName = mark.Course.CourseName,
+                TeacherName = mark.Teacher.User.FullName,
+                MarksObtained = mark.MarksObtained,
+                TotalMarks = mark.TotalMarks,
+                Grade = mark.Grade
+            });
+            return response;
+
+
+        }
+        
+
         public async Task AddAsync(AddMarksDto marks)
         {
             var newMarks = new Mark
-            {
+            {   
                 StudentId = marks.StudentId,
                 CourseId = marks.CourseId,
                 TeacherId = marks.TeacherId,

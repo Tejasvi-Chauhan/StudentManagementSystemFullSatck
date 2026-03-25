@@ -35,7 +35,7 @@ namespace StudentManagementSystemFullStack.Repositories.Implementations
 
         public async Task DeleteAsync(int id)
         {
-            var course = _db.Courses.Find(id);
+            var course = await _db.Courses.FindAsync(id);
             if (course == null)
             {
                 throw new Exception($"Course with id {id} not found.");
@@ -43,6 +43,7 @@ namespace StudentManagementSystemFullStack.Repositories.Implementations
 
             course.IsDeleted = true;
             course.IsActive = false;
+            course.ModifiedAt= DateTime.Now;
             await _db.SaveChangesAsync();
 
 

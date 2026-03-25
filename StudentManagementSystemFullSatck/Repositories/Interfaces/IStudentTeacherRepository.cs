@@ -8,9 +8,10 @@ namespace StudentManagementSystemFullStack.Repositories.Interfaces
         Task <IEnumerable<StudentTeacher>> GetByStudentIdAsync(int studentId);
         Task <IEnumerable<StudentTeacher>> GetByTeacherIdAsync(int teacherId);
 
+        Task<IEnumerable<StudentTeacher>> GetAllAsync();
         Task AddAsync(StudentTeacher studentTeacher);
        
-        Task DeleteAsync(int studentId, int teacherId);
+        Task DeleteAsync(int Id);
         
     }
 }

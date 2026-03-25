@@ -43,6 +43,19 @@ namespace StudentManagementSystemFullStack.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            try
+            {
+                var st = await _service.GetAllAsync();
+                return Ok(st);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
         [HttpPost]
         public async Task<IActionResult> AssignTeacher(AssignTeacherDto dto)
         {
@@ -57,12 +70,12 @@ namespace StudentManagementSystemFullStack.Controllers
             }
         }
 
-        [HttpDelete("{studentId}/{teacherId}")]
-        public async Task<IActionResult> RemoveTeacher(int studentId, int teacherId)
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> RemoveTeacher(int Id)
         {
             try
             {
-                await _service.RemoveTeacherAsync(studentId, teacherId);
+                await _service.RemoveTeacherAsync(Id);
                 return Ok("Teacher removed successfully");
             }
             catch (Exception ex)

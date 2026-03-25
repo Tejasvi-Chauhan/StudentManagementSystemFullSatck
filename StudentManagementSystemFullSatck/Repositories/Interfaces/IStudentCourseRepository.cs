@@ -6,10 +6,11 @@ namespace StudentManagementSystemFullStack.Repositories.Interfaces
     {
           Task<IEnumerable<StudentCourse>> GetByStudentIdAsync(int studentId);
           Task<IEnumerable<StudentCourse>> GetByCourseIdAsync(int courseId);
+        Task<IEnumerable<StudentCourse>> GetAllAsync();
 
-         Task AddAsync(StudentCourse studentCourse);
+        Task AddAsync(StudentCourse studentCourse);
 
-        Task DeleteAsync(int studentId, int courseId);
+        Task DeleteAsync(int ScId);
 
 
     }

@@ -41,6 +41,20 @@ namespace StudentManagementSystemFullStack.Services.Implementations
                 AssignedAt = s.CreatedAt
             });
         }
+        public async Task<IEnumerable<StudentCourseResponseDto>> GetAllAsync()
+        {
+            var sc= await _repo.GetAllAsync();
+            return sc.Select(s => new StudentCourseResponseDto
+            {
+                Id = s.Id,
+                StudentName = s.Student.User.FullName,
+                RollNumber = s.Student.RollNumber,
+                CourseName = s.Course.CourseName,
+                CourseCode = s.Course.CourseCode,
+                AssignedAt = s.CreatedAt
+            });
+        }
+
 
         public async Task AssignCourseAsync(AssignCourseToStudentDto dto)
         {
@@ -53,9 +67,9 @@ namespace StudentManagementSystemFullStack.Services.Implementations
             await _repo.AddAsync(studentCourse);
         }
 
-        public async Task RemoveCourseAsync(int studentId, int courseId)
+        public async Task RemoveCourseAsync(int ScId)
         {
-            await _repo.DeleteAsync(studentId, courseId);
+            await _repo.DeleteAsync(ScId);
         }
     }
 }

@@ -28,7 +28,8 @@ namespace StudentManagementSystemFullStack.Services.Implementations
                     return null;
             }
             var courseDto = new CourseDto
-                {
+                {   
+                    Id=course.Id,
                     CourseName = course.CourseName,
                     CourseCode = course.CourseCode
                 };
@@ -40,7 +41,7 @@ namespace StudentManagementSystemFullStack.Services.Implementations
             var courses = await  _repo.GetAllAsync();
             
              var courseDtos = courses.Select(course => new CourseDto
-            {
+            {   Id=course.Id,
                 CourseName = course.CourseName,
                 CourseCode = course.CourseCode
             });

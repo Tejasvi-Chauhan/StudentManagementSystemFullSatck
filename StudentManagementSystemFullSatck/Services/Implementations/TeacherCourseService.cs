@@ -43,6 +43,20 @@ namespace StudentManagementSystemFullStack.Services.Implementations
             });
         }
 
+        public async Task<IEnumerable<TeacherCourseResponseDto>> GetAllAsync()
+        {
+            var tc = await _repo.GetAllAsync();
+            return tc.Select(t => new TeacherCourseResponseDto
+            {
+                Id = t.Id,
+                TeacherName = t.Teacher.User.FullName,
+                Department = t.Teacher.Department,
+                CourseName = t.Course.CourseName,
+                CourseCode = t.Course.CourseCode,
+                AssignedAt = t.CreatedAt
+            });
+        }
+
         public async Task AssignCourseAsync(AssignCourseToTeacherDto dto)
         {
             var teacherCourse = new TeacherCourse
@@ -54,9 +68,9 @@ namespace StudentManagementSystemFullStack.Services.Implementations
             await _repo.AddAsync(teacherCourse);
         }
 
-        public async Task RemoveCourseAsync(int teacherId, int courseId)
+        public async Task RemoveCourseAsync(int Id)
         {
-            await _repo.DeleteAsync(teacherId, courseId);
+            await _repo.DeleteAsync(Id);
         }
     }
 }

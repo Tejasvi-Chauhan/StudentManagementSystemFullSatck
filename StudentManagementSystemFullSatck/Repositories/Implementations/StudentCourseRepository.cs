@@ -26,6 +26,13 @@ namespace StudentManagementSystemFullStack.Repositories.Implementations
              var sc= await _db.StudentCourses.Include(sc => sc.Student).ThenInclude(s => s.User).Include(sc => sc.Course).Where(sc => sc.CourseId == courseId && sc.IsActive && !sc.IsDeleted).ToListAsync();
               return sc;
         }
+
+        public async Task<IEnumerable<Models.StudentCourse>> GetAllAsync()
+        {
+            var StCourse = await _db.StudentCourses
+             .Where(m => !m.IsDeleted && m.IsActive).Include(m=>m.Student).ThenInclude(m=> m.User).Include(m=>m.Course).ToListAsync();
+            return StCourse;
+        }
         public async Task AddAsync(Models.StudentCourse studentCourse)
         {
            await _db.StudentCourses.AddAsync(studentCourse);
@@ -33,9 +40,9 @@ namespace StudentManagementSystemFullStack.Repositories.Implementations
             await _db.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int studentId, int courseId)
+        public async Task DeleteAsync(int ScId)
         {
-            var sc = await _db.StudentCourses.FirstOrDefaultAsync(sc => sc.StudentId == studentId && sc.CourseId==courseId);
+            var sc = await _db.StudentCourses.FirstOrDefaultAsync(sc => ScId ==sc.Id);
             if (sc != null)
             {
                 sc.IsActive = false;

@@ -34,7 +34,7 @@ namespace StudentManagementSystemFullStack.Controllers
             }
         }
 
-        [HttpGet("pending")]
+        [HttpGet]
 
         public async Task<IActionResult> GetAllPendingAsync()
         {

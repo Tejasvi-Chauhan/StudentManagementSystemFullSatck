@@ -7,6 +7,8 @@ namespace StudentManagementSystemFullStack.DTOs.Teacher
         public int Id { get; set; }
 
         [Required(ErrorMessage ="Name is required")]
+        [RegularExpression("^[a-zA-Z ]+$", ErrorMessage = "Only alphabets are allowed")]
+
         public string FullName { get; set; }= string.Empty;
 
         [Required(ErrorMessage ="Email is required")]

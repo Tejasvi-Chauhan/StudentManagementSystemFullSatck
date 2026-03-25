@@ -5,6 +5,8 @@ namespace StudentManagementSystemFullStack.Repositories.Interfaces
     public interface IMarkRepository
     {
         Task<IEnumerable<Mark>> GetByStudentIdAsync(int StudentId);
+
+        Task<IEnumerable<Mark>> GetAllAsync();
         Task AddAsync(Mark mark);
 
         Task UpdateAsync(Mark mark);

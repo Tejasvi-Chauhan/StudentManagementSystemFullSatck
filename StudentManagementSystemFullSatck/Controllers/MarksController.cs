@@ -33,6 +33,21 @@ namespace StudentManagementSystemFullStack.Controllers
 
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            try
+            {
+                var marks = await _service.GetAllAsync();
+                if (marks == null) return NotFound("Marks Not found");
+                return Ok(marks);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"$An error occurred: {{ex.Message}}");
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> Add(AddMarksDto marks)
         {

@@ -20,6 +20,21 @@ namespace StudentManagementSystemFullStack.Repositories.Implementations
             var marks= await _db.Marks.Where(m=> m.StudentId == StudentId && !m.IsDeleted && m.IsActive).ToListAsync();
             return marks;
         }
+
+        public async Task<IEnumerable<Mark>> GetAllAsync()
+        {
+            var marks = await _db.Marks
+       .Where(m => !m.IsDeleted && m.IsActive)
+       .Include(m => m.Student)
+           .ThenInclude(s => s.User)
+       .Include(m => m.Teacher)
+           .ThenInclude(t => t.User)
+       .Include(m => m.Course)
+       .ToListAsync();
+            return marks;
+        }
+
+
         public async Task AddAsync(Mark mark)
         {
             await _db.Marks.AddAsync(mark);

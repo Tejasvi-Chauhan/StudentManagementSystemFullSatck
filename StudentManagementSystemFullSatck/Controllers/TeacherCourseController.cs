@@ -42,6 +42,19 @@ namespace StudentManagementSystemFullStack.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync(int courseId)
+        {
+            try
+            {
+                var tc = await _service.GetAllAsync();
+                return Ok(tc);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> AssignCourse(AssignCourseToTeacherDto dto)
@@ -57,12 +70,12 @@ namespace StudentManagementSystemFullStack.Controllers
             }
         }
 
-        [HttpDelete("{teacherId}/{courseId}")]
-        public async Task<IActionResult> RemoveCourse(int teacherId, int courseId)
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> RemoveCourse(int Id)
         {
             try
             {
-                await _service.RemoveCourseAsync(teacherId, courseId);
+                await _service.RemoveCourseAsync(Id);
                 return Ok("Course removed from teacher successfully");
             }
             catch (Exception ex)

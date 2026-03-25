@@ -34,17 +34,26 @@ namespace StudentManagementSystemFullStack.Repositories.Implementations
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<TeacherCourse>> GetAllAsync()
+        {
+            return await _db.TeacherCourses
+                .Include(tc => tc.Teacher)
+                    .ThenInclude(t => t.User)
+                .Include(tc => tc.Course)
+                .Where(tc=>  tc.IsActive && !tc.IsDeleted)
+                .ToListAsync();
+        }
+
         public async Task AddAsync(TeacherCourse teacherCourse)
         {
             await _db.TeacherCourses.AddAsync(teacherCourse);
             await _db.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int teacherId, int courseId)
+        public async Task DeleteAsync(int id)
         {
             var tc = await _db.TeacherCourses
-                .FirstOrDefaultAsync(tc => tc.TeacherId == teacherId
-                                    && tc.CourseId == courseId);
+                .FirstOrDefaultAsync(tc => id==tc.Id);
             if (tc != null)
             {
                 tc.IsDeleted = true;

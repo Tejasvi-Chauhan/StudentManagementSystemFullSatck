@@ -22,7 +22,7 @@ namespace StudentManagementSystemFullStack.Repositories.Implementations
 
         public async Task<IEnumerable<ProfileUpdateRequest>> GetAllPendingAsync()
         {
-            var req = await _db.ProfileUpdateRequests.Where(r => r.Status == "Pending" && !r.IsDeleted && r.IsActive).ToListAsync();
+            var req = await _db.ProfileUpdateRequests.Where(r => r.Status == "Pending" && !r.IsDeleted && r.IsActive).Include(r=>r.Student).ThenInclude(r=>r.User).ToListAsync();
             return req;
         }
 
