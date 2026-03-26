@@ -15,9 +15,9 @@ namespace StudentManagementSystemFullStack.Repositories.Implementations
             _db = db;
         }
 
-        public async Task<IEnumerable<Mark>> GetByStudentIdAsync(int StudentId)
+        public async Task<IEnumerable<Mark>> GetByIdAsync(int Id)
         {
-            var marks= await _db.Marks.Where(m=> m.StudentId == StudentId && !m.IsDeleted && m.IsActive).ToListAsync();
+            var marks= await _db.Marks.Where(m=> m.Id ==Id && !m.IsDeleted && m.IsActive).ToListAsync();
             return marks;
         }
 

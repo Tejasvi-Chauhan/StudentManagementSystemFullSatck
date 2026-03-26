@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudentManagementSystemFullStack.DTOs.ProfileRequest;
 using StudentManagementSystemFullStack.Services.Interfaces;
@@ -51,12 +52,15 @@ namespace StudentManagementSystemFullStack.Controllers
             }
         }
 
-        [HttpPost("{studentId}")]
-        public async Task<IActionResult> Create(int studentId, CreateRequestDto dto)
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Create([FromBody] CreateRequestDto dto)
         {
             try
             {
-                await _service.CreateAsync(dto, studentId);
+                var userId = int.Parse(User.FindFirst("id")!.Value);
+               
+                await _service.CreateAsync(dto,userId);
                 return Ok("Request created successfully");
             }
             catch (Exception ex)

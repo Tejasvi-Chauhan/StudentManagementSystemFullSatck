@@ -18,11 +18,11 @@ namespace StudentManagementSystemFullStack.Controllers
         }
 
         [HttpGet("{Id}")]
-        public async Task<IActionResult> GetByStudentId(int Id)
+        public async Task<IActionResult> GetById(int Id)
         {
             try
             {
-                var marks = await _service.GetByStudentIdAsync(Id);
+                var marks = await _service.GetByIdAsync(Id);
                 if (marks == null) return NotFound("Marks not found");
                 return Ok(marks);
             }

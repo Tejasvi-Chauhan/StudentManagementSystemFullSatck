@@ -1,6 +1,7 @@
 ﻿
 using StudentManagementSystemFullStack.DTOs.ProfileRequest;
 using StudentManagementSystemFullStack.Models;
+using StudentManagementSystemFullStack.Repositories.Implementations;
 using StudentManagementSystemFullStack.Repositories.Interfaces;
 using StudentManagementSystemFullStack.Services.Interfaces;
 using System.Linq;
@@ -58,11 +59,12 @@ namespace StudentManagementSystemFullStack.Services.Implementations
             return response;
         }
 
-        public async Task CreateAsync(CreateRequestDto dto, int studentId)
+        public async Task CreateAsync(CreateRequestDto dto, int userId)
         {
+            var student = await _repo.GetByIdAsync(userId);
             var newreq = new ProfileUpdateRequest
             { 
-               StudentId=studentId,
+               StudentId=student.Id,
                FieldName = dto.FieldName,
                OldValue = dto.OldValue,
                NewValue = dto.NewValue,

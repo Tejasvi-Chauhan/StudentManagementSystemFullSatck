@@ -15,17 +15,14 @@ namespace StudentManagementSystemFullStack.Services.Implementations
             _repo = repo;
         }
 
-        public async Task<IEnumerable<MarksResponseDto>> GetByStudentIdAsync(int id)
+        public async Task<IEnumerable<MarksResponseDto>> GetByIdAsync(int id)
         {
 
 
-            var mark = await _repo.GetByStudentIdAsync(id);
+            var mark = await _repo.GetByIdAsync(id);
             var response = mark.Select(mark => new MarksResponseDto
             {
                 Id = mark.Id,
-                StudentName = mark.Student.User.FullName,
-                CourseName = mark.Course.CourseName,
-                TeacherName = mark.Teacher.User.FullName,
                 MarksObtained = mark.MarksObtained,
                 TotalMarks = mark.TotalMarks,
                 Grade = mark.Grade
@@ -69,7 +66,7 @@ namespace StudentManagementSystemFullStack.Services.Implementations
 
         public async Task UpdateAsync(int id, UpdateMarksDto marks)
         {
-            var existing = await _repo.GetByStudentIdAsync(id);
+            var existing = await _repo.GetByIdAsync(id);
 
             var mark = existing.FirstOrDefault(m => m.Id == marks.Id);
 
