@@ -34,6 +34,7 @@ namespace StudentManagementSystemFullStack.Repositories.Implementations
         .Include(p => p.Reviewer)
         .FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
         }
+
         public async Task AddAsync(ProfileUpdateRequest request)
         {
             await _db.ProfileUpdateRequests.AddAsync(request);

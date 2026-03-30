@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudentManagementSystemFullStack.DTOs.Auth;
+using StudentManagementSystemFullStack.DTOs.ForgotPass;
 using StudentManagementSystemFullStack.Services.Interfaces;
 
 namespace StudentManagementSystemFullStack.Controllers
@@ -10,10 +11,14 @@ namespace StudentManagementSystemFullStack.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _service;
-        public AuthController(IAuthService service)
+        private readonly IForgotPasswordService _forgotPasswordService;
+
+        public AuthController(IAuthService service, IForgotPasswordService forgotPasswordService)
         {
             _service = service;
+            _forgotPasswordService = forgotPasswordService;
         }
+       
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto dto)
         {
@@ -26,6 +31,13 @@ namespace StudentManagementSystemFullStack.Controllers
             {
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
+        }
+
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordDto dto)
+        {
+            await _forgotPasswordService.ForgotPasswordAsync(dto.Email);
+            return Ok("Reset link sent");
         }
 
 

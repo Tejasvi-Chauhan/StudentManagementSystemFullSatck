@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudentManagementSystemFullStack.DTOs.Teacher;
 using StudentManagementSystemFullStack.Services.Interfaces;
@@ -7,6 +8,7 @@ namespace StudentManagementSystemFullStack.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TeacherController : ControllerBase
     {
         private readonly ITeacherService _service;
@@ -54,6 +56,7 @@ namespace StudentManagementSystemFullStack.Controllers
             }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Add(CreateTeacherDto teacher) {
             try
             {
@@ -68,6 +71,7 @@ namespace StudentManagementSystemFullStack.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
 
         public async Task<IActionResult> Delete(int id)
         {  

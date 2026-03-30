@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudentManagementSystemFullStack.DTOs.Marks;
 using StudentManagementSystemFullStack.Services.Interfaces;
@@ -8,6 +9,7 @@ namespace StudentManagementSystemFullStack.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MarksController : ControllerBase
     {
         private readonly IMarkService _service;
@@ -49,6 +51,7 @@ namespace StudentManagementSystemFullStack.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Teacher")]
         public async Task<IActionResult> Add(AddMarksDto marks)
         {
             try
@@ -63,7 +66,7 @@ namespace StudentManagementSystemFullStack.Controllers
         }
 
         [HttpPut("{Id}")]
-
+        [Authorize(Roles = "Admin,Teacher")]
         public async Task<IActionResult> Update(int Id, UpdateMarksDto marks)
         {
             try
@@ -77,7 +80,7 @@ namespace StudentManagementSystemFullStack.Controllers
             }
         }
         [HttpDelete("{Id}")]
-
+        [Authorize(Roles = "Admin,Teacher")]
         public async Task<IActionResult> Delete(int Id)
         {
             try

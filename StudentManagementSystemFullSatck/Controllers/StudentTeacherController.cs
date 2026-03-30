@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StudentManagementSystemFullStack.DTOs.StudentTeacher;
 using StudentManagementSystemFullStack.Services.Interfaces;
 
@@ -6,6 +7,7 @@ namespace StudentManagementSystemFullStack.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class StudentTeacherController : ControllerBase
     {
         private readonly IStudentTeacherService _service;

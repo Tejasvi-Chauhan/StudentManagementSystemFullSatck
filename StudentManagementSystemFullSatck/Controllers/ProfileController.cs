@@ -8,6 +8,7 @@ namespace StudentManagementSystemFullStack.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProfileController : ControllerBase
     {
         private readonly IProfileUpdateService _service;
@@ -52,25 +53,25 @@ namespace StudentManagementSystemFullStack.Controllers
             }
         }
 
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> Create([FromBody] CreateRequestDto dto)
+        [HttpPost("{studentId}")]
+        public async Task<IActionResult> Create(int studentId, CreateRequestDto dto)
         {
             try
             {
-                var userId = int.Parse(User.FindFirst("id")!.Value);
-               
-                await _service.CreateAsync(dto,userId);
+                var id = studentId;
+                var dt = dto;
+                await _service.CreateAsync(dto, studentId);
                 return Ok("Request created successfully");
             }
             catch (Exception ex)
             {
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
-            
+
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateStatus(int id, UpdateStatusDto dto)
         {
             try

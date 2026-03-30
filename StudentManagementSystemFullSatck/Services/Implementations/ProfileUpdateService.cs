@@ -59,12 +59,12 @@ namespace StudentManagementSystemFullStack.Services.Implementations
             return response;
         }
 
-        public async Task CreateAsync(CreateRequestDto dto, int userId)
+        public async Task CreateAsync(CreateRequestDto dto, int studentId)
         {
-            var student = await _repo.GetByIdAsync(userId);
+           
             var newreq = new ProfileUpdateRequest
             { 
-               StudentId=student.Id,
+               StudentId=studentId,
                FieldName = dto.FieldName,
                OldValue = dto.OldValue,
                NewValue = dto.NewValue,
@@ -74,24 +74,41 @@ namespace StudentManagementSystemFullStack.Services.Implementations
             
             };
 
-            await _repo.AddAsync(newreq );
+            await _repo.AddAsync(newreq);
 
         }
 
 
         public async Task UpdateAsync(int id, UpdateStatusDto dto)
         {
-            var req= await  _repo.GetByIdAsync(id);
+            var req = await _repo.GetByIdAsync(id);
             if (req == null) throw new Exception("Request Not found");
 
-            req.Status = dto.status;
-           req.ReviewedBy = dto.ReviewedBy;
-            req.ReviewedAt=DateTime.Now;
-            req.ModifiedAt= DateTime.Now;
-            
-            await _repo.UpdateAsync(req);
+          
+            if (dto.status == "Approved")
+            {
+                var student = req.Student; 
 
-            
+                if (student == null)
+                    throw new Exception("Student not found");
+
+               
+                if (req.FieldName == "Email")
+                    student.User.Email = req.NewValue;
+
+                else if (req.FieldName == "FullName")
+                    student.User.FullName = req.NewValue;
+
+                else if (req.FieldName == "Phone")
+                    student.PhoneNumber = req.NewValue;
+            }
+
+            req.Status = dto.status;
+            req.ReviewedBy = dto.ReviewedBy;
+            req.ReviewedAt = DateTime.Now;
+            req.ModifiedAt = DateTime.Now;
+
+            await _repo.UpdateAsync(req);
         }
 
         public async Task DeleteAsync(int id)

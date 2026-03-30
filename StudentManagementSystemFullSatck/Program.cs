@@ -7,7 +7,7 @@ using StudentManagementSystemFullStack.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.OpenApi.Models;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -67,7 +67,8 @@ builder.Services.AddScoped<IStudentTeacherService, StudentTeacherService>();
 builder.Services.AddScoped<ITeacherCourseService, TeacherCourseService>();
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IForgotPasswordService, ForgotPasswordService>();
 
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

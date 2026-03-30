@@ -13,7 +13,9 @@ namespace StudentManagementSystemFullStack.Models
        
        
         public string Role { get; set; } = string.Empty; // "Student", "Teacher", "Admin"
-       
-        
+        public string? ResetToken { get; set; }
+        public DateTime? ResetTokenExpiry { get; set; }
+
+
     }
 }

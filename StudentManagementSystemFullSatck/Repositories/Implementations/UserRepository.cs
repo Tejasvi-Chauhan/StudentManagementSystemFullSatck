@@ -19,7 +19,12 @@ namespace StudentManagementSystemFullStack.Repositories.Implementations
             return user;
         }
 
+        public async Task SaveAsync()
+        {
+            await _db.SaveChangesAsync();
+
         }
     }
+}
 
   
