@@ -9,7 +9,8 @@ namespace StudentManagementSystemFullStack.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]          
+    [Authorize]
+            
     public class StudentController : ControllerBase
     {
         private readonly IStudentService _service;
@@ -59,6 +60,8 @@ namespace StudentManagementSystemFullStack.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
+
+
         public async Task<IActionResult> Add(CreateStudentDto student)
         {
             try

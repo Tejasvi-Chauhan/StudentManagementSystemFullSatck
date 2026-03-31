@@ -36,10 +36,33 @@ namespace StudentManagementSystemFullStack.Controllers
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordDto dto)
         {
-            await _forgotPasswordService.ForgotPasswordAsync(dto.Email);
-            return Ok("Reset link sent");
+            try
+            {
+                await _forgotPasswordService.ForgotPasswordAsync(dto.Email);
+                return Ok("Reset link sent");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+
+            }
+
+        [HttpPost("reset-password")]
+
+        public async Task<IActionResult> ResetPassword(ResetPasswordDto dto)
+        {
+            try
+            {
+                await _forgotPasswordService.ResetPasswordAsync(dto);
+                return Ok("Password reset successful");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
         }
 
 
-    }
+        }
 }

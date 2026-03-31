@@ -16,6 +16,33 @@ namespace StudentManagementSystemFullStack.Services.Implementations
             _repo = repo;
         }
 
+        private string GetBranchCode(string branch)
+        {
+            return string.Concat(branch
+           .Split(' ').Select(word => word[0])).ToUpper();
+        }
+
+        private async Task<string> GenerateRollNumber(string branch)
+        {
+            var branchCode = GetBranchCode(branch);
+            var students = await _repo.GetAllAsync();
+            var lastStudent = students.Where(s => s.Branch == branch).OrderByDescending(s => s.Id).FirstOrDefault();
+
+            int nextNumber = 1;
+            if (lastStudent != null)
+            {
+                var numberPart = lastStudent.RollNumber.Substring(branchCode.Length);
+                nextNumber = int.Parse(numberPart) + 1;
+
+
+            }
+            else
+            {
+                nextNumber = 1;
+            }
+            return $"{branchCode}{nextNumber.ToString("D4")}";
+        }
+
 
         public async Task<StudentResponseDto?> GetByIdAsync(int id)
         {
@@ -29,7 +56,8 @@ namespace StudentManagementSystemFullStack.Services.Implementations
                 Id = st.Id,
                 FullName = st.User.FullName,
                 Email = st.User.Email,
-               
+                Branch = st.Branch,
+                 RollNumber = st.RollNumber,
                 Address = st.Address,
                 PhoneNumber = st.PhoneNumber,
                 DateOfBirth = st.DateOfBirth
@@ -46,7 +74,7 @@ namespace StudentManagementSystemFullStack.Services.Implementations
                 FullName = s.User.FullName,
                 Email = s.User.Email,
                 RollNumber = s.RollNumber,
-
+                Branch = s.Branch,
                 Address = s.Address,
                 PhoneNumber = s.PhoneNumber,
                 DateOfBirth = s.DateOfBirth
@@ -56,8 +84,9 @@ namespace StudentManagementSystemFullStack.Services.Implementations
         }
 
         public async Task AddAsync(CreateStudentDto dto)
-        {
-           var student = new Models.Student
+        {  
+            var rollnumber = await GenerateRollNumber(dto.Branch);
+            var student = new Models.Student
             {
                 User = new Models.User
                 {
@@ -67,8 +96,9 @@ namespace StudentManagementSystemFullStack.Services.Implementations
                     Role= "Student",
                     CreatedAt=DateTime.Now,
                 },
-                RollNumber = dto.RollNumber,
-                Address = dto.Address,
+               RollNumber = rollnumber,
+               Branch = dto.Branch,
+               Address = dto.Address,
                 PhoneNumber = dto.PhoneNumber,
                 DateOfBirth = dto.DateOfBirth,
                 CreatedAt= DateTime.Now,

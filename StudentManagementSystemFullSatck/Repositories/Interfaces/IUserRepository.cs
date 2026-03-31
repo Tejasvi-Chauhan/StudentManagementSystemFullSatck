@@ -6,7 +6,10 @@ namespace StudentManagementSystemFullStack.Repositories.Interfaces
     {
         Task<User?> GetByEmailId(string email);
 
-        Task SaveAsync();
+        Task<User?> GetByResetTokenAsync(string token); 
 
+        Task UpdateAsync(User user); 
+
+        Task SaveAsync();
     }
 }

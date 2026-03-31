@@ -32,9 +32,15 @@ namespace StudentManagementSystemFullStack.Repositories.Implementations
 
         public async Task AddAsync(Student student)
         {
-
-            await _db.Students.AddAsync(student);
-            await _db.SaveChangesAsync();
+            try
+            {
+                await _db.Students.AddAsync(student);
+                await _db.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.InnerException?.Message);
+            }
             
         }
 

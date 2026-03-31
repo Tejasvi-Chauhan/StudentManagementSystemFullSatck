@@ -1,4 +1,5 @@
-﻿using StudentManagementSystemFullStack.Repositories.Implementations;
+﻿using StudentManagementSystemFullStack.DTOs.ForgotPass;
+using StudentManagementSystemFullStack.Repositories.Implementations;
 using StudentManagementSystemFullStack.Repositories.Interfaces;
 using StudentManagementSystemFullStack.Services.Interfaces;
 
@@ -22,16 +23,18 @@ namespace StudentManagementSystemFullStack.Services.Implementations
             {
                 var user = await _repo.GetByEmailId(email);
 
-                if (user == null) return;
+                if (user == null) throw new Exception("User not found");
 
                 var token = Guid.NewGuid().ToString();
 
                 user.ResetToken = token;
                 user.ResetTokenExpiry = DateTime.UtcNow.AddMinutes(15);
 
+                await _repo.UpdateAsync(user);
+
                 await _repo.SaveAsync();
 
-                var resetLink = $"http://localhost:3000/reset-password?token={token}";
+                var resetLink = $"http://localhost:5173/reset-password?token={token}";
 
                 var subject = "Reset Password";
 
@@ -47,5 +50,27 @@ namespace StudentManagementSystemFullStack.Services.Implementations
 
 
             }
-    }
+
+        public async Task ResetPasswordAsync(ResetPasswordDto dto)
+        {
+            try
+            {
+                var user = await _repo.GetByResetTokenAsync(dto.Token);
+                if (user == null)
+                    throw new Exception("Invalid or expired token");
+                if(dto.NewPassword != dto.ConfirmPassword)
+                    throw new Exception("Passwords do not match");
+
+                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
+                user.ResetToken = null;
+                user.ResetTokenExpiry = null;
+                await _repo.UpdateAsync(user);
+                await _repo.SaveAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while resetting the password: {ex.Message}");
+            }
+        }
+        }
 }
